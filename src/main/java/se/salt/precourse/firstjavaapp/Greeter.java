@@ -11,12 +11,6 @@ public class Greeter {
   private static String greet(String namePassedIn) {
     return "Welcome to SALT, " + namePassedIn;
   }
-    private static String calcualte(String inputdate) {
-      LocalDate targetdate= LocalDate.parse(inputdate);
-      LocalDate currentdate=LocalDate.now();
-      long daysRemaining = ChronoUnit.DAYS.between(currentdate, targetdate);
-      return "Today it is " + daysRemaining  +" days left until the course starts";
-    }
 
   public static void main(String[] args) throws IOException {
     System.out.print("What is your name? ");
@@ -25,11 +19,14 @@ public class Greeter {
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     String name = Sc.nextLine();
     System.out.print("When does that course start?");
-    String inputdate = Sc.nextLine();
+    String startDateInput = Sc.nextLine();
     String greeting = greet(name);
-    String Date= calcualte(inputdate);
+    StartDateHandler startDateHandler = new StartDateHandler();
     System.out.println(greeting);
-    System.out.println(Date);
-
+    if (startDateHandler.dateHasOnlyNumbers(startDateInput)) {
+      System.out.println("Today it is " + startDateHandler.daysToCourseStart(startDateInput) + " days left until the course starts");
+    } else {
+      System.out.println("Enter a valid date");
+    }
   }
 }
